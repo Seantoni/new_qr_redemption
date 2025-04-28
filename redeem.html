@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canjear Cupón</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="voucher-container">
+            <div id="loading">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                </div>
+                <p>Cargando información del cupón...</p>
+            </div>
+            
+            <div id="voucher-info" style="display: none;">
+                <div class="voucher-content">
+                    <img id="voucher-image" class="voucher-image" src="https://placehold.it/600x300" alt="Imagen del cupón">
+                    <h1 id="voucher-name" class="voucher-title"></h1>
+                    <p id="voucher-description" class="voucher-description"></p>
+                    
+                    <div class="voucher-info">
+                        <div class="voucher-info-item">
+                            <span class="voucher-info-label">A nombre de:</span>
+                            <span class="voucher-info-value">Jose Paez</span>
+                        </div>
+                        
+                        <div class="voucher-info-item">
+                            <span class="voucher-info-label">A recoger en:</span>
+                            <span id="voucher-location" class="voucher-info-value"></span>
+                        </div>
+                        
+                        <div class="voucher-info-item">
+                            <span class="voucher-info-label">Fecha de expiración:</span>
+                            <span id="voucher-expiry" class="voucher-info-value"></span>
+                        </div>
+                    </div>
+                    
+                    <!-- How to use section -->
+                    <div class="voucher-section">
+                        <h2 class="section-title">Cómo utilizar esto</h2>
+                        <p class="section-text">Presenta tu voucher impreso, tu ID, o enseña este voucher desde la pantalla de tu Smartphone en Portofino Restaurante & Bar. Reservas no son necesarias de martes a sábado, sin embargo, se deberá esperar por una mesa si el restaurante está lleno. Reserva previa requerida para utilizar tu voucher los domingos en horario de 10:00 am a 4:00 pm. Sujeto a disponibilidad. Válido a partir del 11 de noviembre por 3 meses.</p>
+                        <p class="section-text"><strong>Teléfono:</strong> 202-0854</p>
+                        <p class="social-note"><strong>¡Recuerda compartir tu experiencia usando #LaVidaOS en Instagram para ganar en grande!</strong></p>
+                    </div>
+                    
+                    <!-- Contact section -->
+                    <div class="voucher-section">
+                        <h2 class="section-title">¿Necesita ayuda?</h2>
+                        <p class="section-text"><a href="mailto:contacto@ofertasimple.com">contacto@ofertasimple.com</a></p>
+                    </div>
+                    
+                    <!-- Information section -->
+                    <div class="voucher-section">
+                        <h2 class="section-title">Información</h2>
+                        <p class="section-text">Vouchers ilimitados pueden ser comprados y usados por persona. Vouchers ilimitados pueden ser comprados para regalar. Impuestos no incluidos. Propina no incluida. Sujeto a disponibilidad. Válido para consumir todas las comidas y bebidas del menú. Se puede utilizar 1 voucher en mesas con mínimo de 1 persona en adelante. 2 vouchers pueden ser utilizados en mesas con mínimo de 4 personas en adelante. 3 vouchers pueden ser utilizados en mesas con un mínimo de 6 personas en adelante, y así sucesivamente. Debe ser redimido en una sola visita. Válido solo para comer en el restaurante. No es válido para domicilio ni pedidos para llevar. Reservas no son necesarias de martes a sábado, sin embargo, se deberá esperar por una mesa si el restaurante está lleno. Reserva previa requerida para utilizar tu voucher los domingos en horario de 10:00 am a 4:00 pm. Sujeto a disponibilidad. Las reservas y cancelaciones deben realizarse únicamente a los teléfonos del restaurante, no se aceptan por otros medios. No es válido con otras promociones o descuentos. No es válido para cashback. No es válido para eventos privados. No aplica en división de cuentas, máximo una cuenta por mesa. Válido en días feriados. Válido a partir del 11 de noviembre por 3 meses.</p>
+                    </div>
+                </div>
+                
+                <!-- Redemption button replaces QR code -->
+                <div class="redemption-area">
+                    <div class="qr-explanation">
+                        <p class="qr-question">¿Por qué no veo mi código QR?</p>
+                        <p class="qr-answer">Este establecimiento requiere que el canje sea realizado directamente por ti. Simplemente presiona "Canjear" y sigue las instrucciones para validar tu cupón.</p>
+                    </div>
+                    <button id="redeem-btn" class="btn-primary">Canjear</button>
+                </div>
+            </div>
+            
+            <div id="error-message" style="display: none;">
+                <div class="error-icon">!</div>
+                <h2>Cupón no encontrado</h2>
+                <p>No pudimos encontrar el cupón solicitado.</p>
+                <a href="index.html" class="btn">Volver al inicio</a>
+            </div>
+            
+            <div id="redeemed-message" style="display: none;">
+                <div class="success-icon">✓</div>
+                <h2>¡Canje exitoso!</h2>
+                <p>Tu número de confirmación es:</p>
+                <strong id="confirmation-code"></strong>
+                <p>En caso de que tengas algún inconveniente, por favor contacta a contacto@ofertasimple.com y te ayudaremos.</p>
+                <a href="index.html" class="btn">Volver al inicio</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+            <h2 class="timer-header">Confirmar Canje</h2>
+            <p>¿Quieres canjear este cupón? Una vez que hagas canje no se puede revertir.</p>
+            <div class="modal-buttons">
+                <button id="confirm-btn" class="btn-primary">Confirmar</button>
+                <button id="cancel-btn" class="btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Timer Modal -->
+    <div id="timer-modal" class="modal">
+        <div class="modal-content">
+            <h2 class="timer-header">Procesando canje</h2>
+            <p>Tu cupón será canjeado en:</p>
+            <div id="countdown" class="countdown">5</div>
+            <div class="progress-container">
+                <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+            </div>
+            <button id="cancel-timer-btn" class="btn-secondary">Cancelar</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
