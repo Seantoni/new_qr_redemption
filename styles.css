@@ -3,14 +3,14 @@
     --secondary-color: #ff5252; /* OfertaSimple red */
     --text-color: #333;
     --light-text: #666;
-    --background-color: #f5f5f5;
+    --background-color: #f9f9f9; /* Unificado */
     --border-color: #e0e0e0;
     --header-color: #0d5f45; /* Darker green for headers */
     --button-hover: #d14d1c; /* Keeping the variable for reference but removing effects */
     --white: #ffffff;
     --voucher-title-color: #e25822; /* Orange color for voucher title */
     --voucher-code-color: #e25822; /* Orange color for voucher code */
-    --info-bg: #f8f8f8;
+    --info-bg: #f9f9f9; /* Unificado */
 }
 
 * {
@@ -85,7 +85,7 @@ body {
 }
 
 .voucher-content::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #f9f9f9;
 }
 
 .voucher-content::-webkit-scrollbar-thumb {
@@ -176,7 +176,7 @@ h1, h2 {
     margin: 20px 15px;
     padding: 20px 15px;
     text-align: center;
-    background-color: var(--info-bg);
+    background-color: #f9f9f9;
     border-radius: 10px;
 }
 
@@ -215,7 +215,7 @@ h1, h2 {
 .progress-container {
     width: 100%;
     height: 10px;
-    background-color: #f1f1f1;
+    background-color: #f9f9f9;
     border-radius: 20px;
     margin: 25px 0 30px;
     overflow: hidden;
@@ -230,25 +230,63 @@ h1, h2 {
 }
 
 /* Success message */
-.success-icon {
-    font-size: 70px;
-    color: var(--primary-color);
-    margin: 25px 0;
+#redeemed-message {
+    padding: 25px 20px;
+    background-color: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-#redeemed-message {
-    padding: 30px 20px;
+.success-icon {
+    font-size: 60px;
+    color: white;
+    margin: 0 auto 20px;
+    background-color: #53C4A4; /* Changed from primary color to teal */
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(83, 196, 164, 0.25); /* Updated shadow color to match */
+}
+
+#redeemed-message h2 {
+    color: var(--primary-color);
+    font-size: 26px;
+    margin-bottom: 25px;
+    font-weight: 800;
+    text-align: center;
+    width: 100%;
+}
+
+#redeemed-message p {
+    margin-bottom: 10px;
+    color: #666;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
 }
 
 #confirmation-code {
-    font-size: 26px;
+    font-size: 28px;
     color: var(--primary-color);
     display: block;
-    margin: 20px 0;
-    padding: 15px;
-    background: #fff5f0; /* Lighter orange background */
+    margin: 5px auto 25px;
+    padding: 15px 25px;
+    background: #f9f9f9;
     border-radius: 8px;
     font-weight: bold;
+    letter-spacing: 1px;
+    border: 1px dashed var(--primary-color);
+    width: 90%;
+    text-align: center;
 }
 
 /* Loading and errors */
@@ -358,7 +396,7 @@ button:active, a:active {
     text-align: center;
     padding: 10px;
     border-left: 3px solid var(--primary-color);
-    background-color: rgba(226, 88, 34, 0.05);
+    background-color: #f9f9f9;
 }
 
 /* Button positioning */
@@ -371,7 +409,7 @@ button:active, a:active {
     letter-spacing: 0.5px;
     text-transform: uppercase;
     margin: 0 auto;
-    border-radius: 6px; /* Slightly rounded corners */
+    border-radius: 30px; /* More rounded corners to match other buttons */
 }
 
 .redemption-area .btn-primary:active {
@@ -450,4 +488,48 @@ button:active, a:active {
 .voucher-card {
     position: static; /* Ensure it doesn't interfere with absolute positioning */
     height: 100%;
+}
+
+.redemption-timestamp {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 20px auto;
+    width: 90%;
+    font-size: 14px;
+    color: #666;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.redemption-timestamp span {
+    font-weight: 700;
+    color: var(--primary-color);
+    display: block;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 16px;
+    text-align: center;
+}
+
+.contact-info {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px auto 25px;
+    width: 90%;
+    border-left: 3px solid var(--primary-color);
+    text-align: center;
+}
+
+#redeemed-message .btn {
+    padding: 14px 30px;
+    margin: 10px auto 0;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: block;
+    width: fit-content;
+    text-align: center;
 } 

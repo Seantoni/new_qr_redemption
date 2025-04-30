@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmationCodeElement = document.getElementById('confirmation-code');
     const voucherImageElement = document.getElementById('voucher-image');
     const voucherLocationElement = document.getElementById('voucher-location');
+    const redemptionDatetimeElement = document.getElementById('redemption-datetime');
     
     // Buttons and modals
     const redeemBtn = document.getElementById('redeem-btn');
@@ -163,15 +164,41 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update voucher as redeemed (in a real app, this would call an API)
         // For MVP, just show the redeemed message
         const voucherCode = voucherToken;
-        showRedeemedMessage(voucherCode);
+        
+        // Capture redemption datetime
+        const now = new Date();
+        const formattedDate = formatRedemptionDate(now);
+        
+        // Show redemption message with date/time
+        showRedeemedMessage(voucherCode, formattedDate);
     }
     
-    function showRedeemedMessage(voucherCode) {
+    function showRedeemedMessage(voucherCode, formattedDate) {
         confirmationCodeElement.textContent = voucherCode;
+        
+        if (redemptionDatetimeElement && formattedDate) {
+            redemptionDatetimeElement.textContent = formattedDate;
+        }
+        
         redeemedMessageElement.style.display = 'block';
         
         // In a real app, update voucher status in database
-        console.log('Voucher redeemed:', voucherCode);
+        console.log('Voucher redeemed:', voucherCode, 'at', formattedDate);
+    }
+    
+    function formatRedemptionDate(date) {
+        // Format date in Spanish format: 23 de Noviembre de 2023, 14:35:22
+        const options = { 
+            day: 'numeric', 
+            month: 'long', 
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        };
+        
+        return date.toLocaleDateString('es-ES', options);
     }
     
     function formatDate(dateString) {
