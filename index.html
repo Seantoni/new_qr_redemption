@@ -8,12 +8,132 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            height: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        p {
+            text-align: center;
+        }
+        
+        .qr-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
+            align-items: center;
+        }
+        
+        .option-title {
+            font-weight: 700;
+            margin-top: 30px;
+            color: var(--header-color);
+            text-align: center;
+        }
+        
+        .scenario-group {
+            border-top: 1px solid #eee;
+            padding-top: 25px;
+            margin-top: 25px;
+            width: 100%;
+        }
+        
+        .scenario-group-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .btn.btn-primary {
+            width: 100%;
+            max-width: 340px;
+            margin: 0 auto 10px auto;
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Canje de Cupones</h1>
-        <p>Para simular el escaneo de un QR, haz clic en el siguiente enlace:</p>
-        <a href="redeem.html?voucher=XYZ123" class="btn">Simular escaneo QR</a>
+        <h1>Simulador QR de OfertaSimple</h1>
+        <p>Selecciona un escenario para simular el escaneo de un código QR</p>
+        
+        <div class="dev-documentation" style="margin: 20px auto; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; text-align: left; max-width: 600px; font-size: 14px;">
+            <h3 style="color: #333; margin-bottom: 15px;">Developer Documentation - User Flow</h3>
+            <p><strong>Overview:</strong> This simulator demonstrates the adaptive QR redemption flow for OfertaSimple experiences.</p>
+            
+            <p><strong>Adaptive Flow Logic:</strong></p>
+            <ol style="padding-left: 20px;">
+                <li>When a QR code is scanned, the system checks the merchant, available offers, and user's vouchers</li>
+                <li>Based on these checks, the system decides which page to show the user</li>
+                <li>The flow prioritizes error states, then multiple-selection scenarios, then direct redemption</li>
+            </ol>
+            
+            <p><strong>Possible Scenarios:</strong></p>
+            <ul style="padding-left: 20px;">
+                <li><strong>Single Voucher (Direct Redemption):</strong> User has exactly one voucher for the merchant's offer → Show <a href="redeem.html?voucher=voucher1" target="_blank" style="color:var(--primary-color);">redemption screen</a></li>
+                <li><strong>Multiple Offers:</strong> Merchant has multiple active offers → Show <a href="merchant-offers.html?merchant=merchant1" target="_blank" style="color:var(--primary-color);">merchant offers selection screen</a></li>
+                <li><strong>Multiple Vouchers:</strong> User has multiple vouchers for a single offer → Show <a href="voucher-selection.html?offer=offer1" target="_blank" style="color:var(--primary-color);">voucher selection screen</a></li>
+                <li><strong>Expired Voucher:</strong> User has a voucher but it has expired → Show <a href="expired-voucher.html" target="_blank" style="color:var(--primary-color);">expired voucher screen</a></li>
+                <li><strong>No Voucher:</strong> User has no vouchers for this merchant AND the offer is still active → Show <a href="no-voucher.html" target="_blank" style="color:var(--primary-color);">no-voucher screen</a> with purchase option</li>
+                <li><strong>Inactive Offer:</strong> The offer is no longer active (either user had an expired voucher OR user did not buy but deal is not active on site) → Show <a href="inactive-offer.html?status=expired" target="_blank" style="color:var(--primary-color);">inactive offer screen</a></li>
+            </ul>
+            
+            <p><strong>Flow Priority:</strong></p>
+            <ol style="padding-left: 20px;">
+                <li>First check if offer is inactive</li>
+                <li>Then check if voucher is expired</li>
+                <li>Then check if user has no vouchers</li>
+                <li>Then check if merchant has multiple offers</li>
+                <li>Then check if user has multiple vouchers</li>
+                <li>Finally, direct redemption</li>
+            </ol>
+            
+            <p><strong>Redemption Process:</strong> Once on the redemption screen, user must confirm redemption which triggers a countdown timer and progress bar. After confirmation, a success screen with confirmation code is shown.</p>
+        </div>
+        
+        <div class="qr-options">
+            <div class="scenario-group">
+                <h2 class="scenario-group-title">Escenarios de Redención</h2>
+                <p class="option-title">Escenario 1: Un solo cupón (Canje Directo)</p>
+                <a href="#" class="btn btn-primary" onclick="simulateQRScan('single-voucher'); return false;">Simular canje directo</a>
+                
+                <p class="option-title">Escenario 2: Múltiples ofertas</p>
+                <a href="#" class="btn btn-primary" onclick="simulateQRScan('multiple-offers'); return false;">Simular múltiples ofertas</a>
+                
+                <p class="option-title">Escenario 3: Múltiples cupones</p>
+                <a href="#" class="btn btn-primary" onclick="simulateQRScan('multiple-vouchers'); return false;">Simular múltiples cupones</a>
+            </div>
+            
+            <div class="scenario-group">
+                <h2 class="scenario-group-title">Escenarios de Error</h2>
+                <p class="option-title">Escenario 4: Cupón expirado</p>
+                <a href="#" class="btn btn-primary" onclick="simulateQRScan('expired-voucher'); return false;">Simular cupón expirado</a>
+                
+                <p class="option-title">Escenario 5: Usuario sin cupón (Oferta activa)</p>
+                <a href="#" class="btn btn-primary" onclick="simulateQRScan('no-voucher'); return false;">Simular usuario sin cupón</a>
+                
+                <p class="option-title">Escenario 6: Oferta inactiva</p>
+                <a href="#" class="btn btn-primary" onclick="simulateQRScan('inactive-offer-expired'); return false;">Simular oferta inactiva</a>
+            </div>
+        </div>
     </div>
+    
+    <script src="adaptive-flow.js"></script>
 </body>
 </html> 

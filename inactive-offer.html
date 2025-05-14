@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiencia evolucionada</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="error-container">
+            <i class="fa-solid fa-xmark" style="font-size: 80px; color: var(--primary-color); margin: 0 auto 25px; display: block;"></i>
+            <h1 class="error-title">Esta experiencia ha expirado</h1>
+            <div class="error-description">
+                <!-- Removed specified text -->
+            </div>
+            
+            <div class="cta-container">
+
+                <div class="cta-buttons">
+                    <a href="https://www.ofertasimple.com" class="btn-primary">Descubrir nuevas experiencias</a>
+                </div>
+                <p class="additional-info">En OfertaSimple curamos cuidadosamente experiencias locales con los mejores creadores de momentos memorables.</p>
+            </div>
+            
+            <div class="contact-info">
+                <p>Si tienes preguntas o necesitas asistencia, escríbenos a <strong>contacto@ofertasimple.com</strong> y te acompañaremos en el proceso.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Simple script to detect if user had an expired voucher or never bought one
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userStatus = urlParams.get('status');
+            const userSpecificMessage = document.getElementById('user-specific-message');
+            
+            if (userStatus === 'expired') {
+                userSpecificMessage.innerHTML = '';
+            } else {
+                userSpecificMessage.innerHTML = 'Esta experiencia ha expirado. Te invitamos a descubrir lo que ahora está disponible.';
+            }
+        });
+    </script>
+</body>
+</html> 

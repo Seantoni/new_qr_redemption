@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Cupón</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div id="vouchers-container">
+            <div id="loading">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                </div>
+                <p>Cargando cupones disponibles...</p>
+            </div>
+            
+            <div id="offer-info" style="display: none;">
+                <div class="offer-header">
+                    <div class="merchant-icon-header">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <h1 id="merchant-name-header" class="merchant-title"></h1>
+                    <p class="selection-title-main">Selecciona el cupón que deseas canjear:</p>
+                </div>
+                
+                <div class="vouchers-list">
+                    <!-- Vouchers will be dynamically added here -->
+                </div>
+            </div>
+            
+            <div id="error-message" style="display: none;">
+                <div class="error-icon">!</div>
+                <h2>Cupones no encontrados</h2>
+                <p>No pudimos encontrar cupones para esta oferta.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="voucher-selection.js"></script>
+</body>
+</html> 
