@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const voucherImageElement = document.getElementById('voucher-image');
     const voucherLocationElement = document.getElementById('voucher-location');
     const redemptionDatetimeElement = document.getElementById('redemption-datetime');
+    const redeemedDealTextElement = document.getElementById('redeemed-deal-text');
+    
+    // Store voucher data globally so we can access it in the success message
+    let currentVoucherData = null;
     
     // Buttons and modals
     const redeemBtn = document.getElementById('redeem-btn');
@@ -67,6 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 imageUrl: 'https://cloudfront.osimages.us/eyJidWNrZXQiOiJvZmVydGEtdXBsb2Fkcy1wcm9kIiwia2V5IjoicGljdHVyZXNcL25ld19vZmZlcl9pbWFnZXNcL2RlYTJlMTE1MTdkNGNmMzM4NzJmYzg1YTY3NjE5NTgxLmpwZyIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NjQ4LCJmaXQiOiJjb3ZlciIsImhlaWdodCI6MzYzfX19',
                 isRedeemed: false
             };
+            
+            // Store voucher data globally
+            currentVoucherData = voucherData;
             
             // Display voucher information
             displayVoucherInfo(voucherData);
@@ -178,6 +185,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (redemptionDatetimeElement && formattedDate) {
             redemptionDatetimeElement.textContent = formattedDate;
+        }
+        
+        // Display the deal information that was redeemed
+        if (redeemedDealTextElement && currentVoucherData) {
+            redeemedDealTextElement.textContent = currentVoucherData.description;
         }
         
         redeemedMessageElement.style.display = 'block';

@@ -290,6 +290,33 @@ h1, h2 {
     text-align: center;
 }
 
+.redeemed-deal-info {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    text-align: center;
+    border: 1px solid #e8e8e8;
+}
+
+.redeemed-deal-info h3 {
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.redeemed-deal-info p {
+    color: var(--text-color);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0;
+    text-align: center;
+}
+
 /* Loading and errors */
 #loading {
     font-size: 16px;
