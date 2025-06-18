@@ -92,6 +92,8 @@
                 <li><strong>Expired Voucher:</strong> User has a voucher but it has expired → Show <a href="expired-voucher.html" target="_blank" style="color:var(--primary-color);">expired voucher screen</a></li>
                 <li><strong>No Voucher:</strong> User has no vouchers for this merchant AND the offer is still active → Show <a href="no-voucher.html" target="_blank" style="color:var(--primary-color);">no-voucher screen</a> with purchase option</li>
                 <li><strong>Inactive Offer:</strong> The offer is no longer active (either user had an expired voucher OR user did not buy but deal is not active on site) → Show <a href="inactive-offer.html?status=expired" target="_blank" style="color:var(--primary-color);">inactive offer screen</a></li>
+                <li><strong>Deal Not Yet Active:</strong> The deal exists but is not yet available for redemption → Show <a href="not-active.html" target="_blank" style="color:var(--primary-color);">not-active screen</a> with countdown and other offers link</li>
+                <li><strong>Wrong Location:</strong> User is scanning at a different location than where their voucher is valid → Show <a href="wrong-location.html" target="_blank" style="color:var(--primary-color);">wrong-location screen</a> with guidance to correct location</li>
             </ul>
             
             <p><strong>Flow Priority:</strong></p>
@@ -130,6 +132,12 @@
                 
                 <p class="option-title">Escenario 6: Oferta inactiva</p>
                 <a href="#" class="btn btn-primary" onclick="simulateQRScan('inactive-offer-expired'); return false;">Simular oferta inactiva</a>
+                
+                <p class="option-title">Escenario 7: Cupón aún no disponible</p>
+                <a href="#" class="btn btn-primary" onclick="simulateQRScan('not-active'); return false;">Simular cupón no disponible</a>
+                
+                <p class="option-title">Escenario 8: Ubicación incorrecta</p>
+                <a href="#" class="btn btn-primary" onclick="simulateQRScan('wrong-location'); return false;">Simular ubicación incorrecta</a>
             </div>
         </div>
     </div>

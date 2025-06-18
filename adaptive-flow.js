@@ -18,7 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Simulate API call to check merchant offers and user vouchers
         checkMerchantAndVouchers(qrData)
             .then(result => {
-                if (result.isInactiveOffer) {
+                if (result.isWrongLocation) {
+                    // Redirect to wrong-location page when user is at incorrect merchant
+                    window.location.href = 'wrong-location.html';
+                } else if (result.isNotActive) {
+                    // Redirect to not-active page for deals that aren't yet available
+                    window.location.href = 'not-active.html';
+                } else if (result.isInactiveOffer) {
                     // Redirect to inactive offer page with appropriate status
                     if (result.hasExpiredVoucher) {
                         window.location.href = 'inactive-offer.html?status=expired';
@@ -61,9 +67,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 5. Is the offer still active?
                 
                 // For demo purposes, we'll simulate different scenarios based on QR data
-                if (qrData.includes("inactive-offer-expired")) {
+                if (qrData.includes("wrong-location")) {
+                    // Scenario: User is scanning at wrong merchant/location
+                    resolve({
+                        isWrongLocation: true,
+                        isNotActive: false,
+                        isInactiveOffer: false,
+                        hasExpiredVoucher: false,
+                        isExpired: false,
+                        noVoucher: false,
+                        multipleOffers: false,
+                        multipleVouchers: false,
+                        merchantId: "wrong-merchant",
+                        offerId: "offer-wrong-location",
+                        voucherId: null
+                    });
+                } else if (qrData.includes("not-active")) {
+                    // Scenario: Deal exists but is not yet active for redemption
+                    resolve({
+                        isWrongLocation: false,
+                        isNotActive: true,
+                        isInactiveOffer: false,
+                        hasExpiredVoucher: false,
+                        isExpired: false,
+                        noVoucher: false,
+                        multipleOffers: false,
+                        multipleVouchers: false,
+                        merchantId: "merchant1",
+                        offerId: "offer-not-active",
+                        voucherId: null
+                    });
+                } else if (qrData.includes("inactive-offer-expired")) {
                     // Scenario: Offer is no longer active and user has an expired voucher
                     resolve({
+                        isWrongLocation: false,
+                        isNotActive: false,
                         isInactiveOffer: true,
                         hasExpiredVoucher: true,
                         isExpired: false,
@@ -77,6 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (qrData.includes("inactive-offer-no-purchase")) {
                     // Scenario: Offer is no longer active and user did not purchase
                     resolve({
+                        isWrongLocation: false,
+                        isNotActive: false,
                         isInactiveOffer: true,
                         hasExpiredVoucher: false,
                         isExpired: false,
@@ -90,6 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (qrData.includes("expired-voucher")) {
                     // Scenario: Voucher is expired
                     resolve({
+                        isWrongLocation: false,
+                        isNotActive: false,
                         isInactiveOffer: false,
                         hasExpiredVoucher: false,
                         isExpired: true,
@@ -103,6 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (qrData.includes("no-voucher")) {
                     // Scenario: User has no vouchers for this merchant
                     resolve({
+                        isWrongLocation: false,
+                        isNotActive: false,
                         isInactiveOffer: false,
                         hasExpiredVoucher: false,
                         isExpired: false,
@@ -116,6 +160,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (qrData.includes("multiple-offers")) {
                     // Scenario: Merchant has multiple offers
                     resolve({
+                        isWrongLocation: false,
+                        isNotActive: false,
                         isInactiveOffer: false,
                         hasExpiredVoucher: false,
                         isExpired: false,
@@ -129,6 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (qrData.includes("multiple-vouchers")) {
                     // Scenario: User has multiple vouchers for one offer
                     resolve({
+                        isWrongLocation: false,
+                        isNotActive: false,
                         isInactiveOffer: false,
                         hasExpiredVoucher: false,
                         isExpired: false,
@@ -142,6 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     // Scenario: User has only one voucher
                     resolve({
+                        isWrongLocation: false,
+                        isNotActive: false,
                         isInactiveOffer: false,
                         hasExpiredVoucher: false,
                         isExpired: false,
@@ -180,6 +230,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
             case "inactive-offer-no-purchase":
                 qrData = "ofertasimple://redeem/inactive-offer-no-purchase/merchant1";
+                break;
+            case "not-active":
+                qrData = "ofertasimple://redeem/not-active/merchant1";
+                break;
+            case "wrong-location":
+                qrData = "ofertasimple://redeem/wrong-location/merchant1";
                 break;
             default:
                 qrData = "ofertasimple://redeem/single-voucher/voucher1";
