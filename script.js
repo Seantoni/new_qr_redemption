@@ -24,6 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const timerModal = document.getElementById('timer-modal');
     const countdownElement = document.getElementById('countdown');
     const cancelTimerBtn = document.getElementById('cancel-timer-btn');
+    // Info modal (auto on load)
+    const infoModal = document.getElementById('info-modal');
+    const infoCloseBtn = document.getElementById('info-close-btn');
+    const infoXBtn = document.getElementById('info-x-btn');
     
     // Get voucher token from URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -38,6 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch voucher info (simulated for MVP)
     fetchVoucherInfo(voucherToken);
     
+    // Show info modal on load to explain no visible QR and gifting policy
+    if (infoModal) {
+        infoModal.style.display = 'flex';
+    }
+
     // Event listeners
     redeemBtn.addEventListener('click', () => {
         showConfirmationModal();
@@ -55,6 +64,17 @@ document.addEventListener('DOMContentLoaded', () => {
     cancelTimerBtn.addEventListener('click', () => {
         cancelRedemption();
     });
+    
+    if (infoCloseBtn) {
+        infoCloseBtn.addEventListener('click', () => {
+            infoModal.style.display = 'none';
+        });
+    }
+    if (infoXBtn) {
+        infoXBtn.addEventListener('click', () => {
+            infoModal.style.display = 'none';
+        });
+    }
     
     // Functions
     function fetchVoucherInfo(token) {
